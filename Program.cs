@@ -1,7 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using Zippy.Data.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ZippyDbContext>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"), 
+        new MariaDbServerVersion(new Version(10, 11, 11))
+     ));
 
 var app = builder.Build();
 
