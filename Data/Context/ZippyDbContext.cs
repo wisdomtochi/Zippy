@@ -21,7 +21,7 @@ namespace Zippy.Data.Context
                 Id = Guid.NewGuid(),
                 Url = "https://github.com/wisdomtochi",
                 Key = "resource1-key",
-                Name = "Resource 1",
+                Alias = "Resource 1",
                 CreatedAt = DateTime.UtcNow
             });
         }

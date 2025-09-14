@@ -1,5 +1,9 @@
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Zippy.Data.Context;
+using Zippy.Data.Repository.Implementation;
+using Zippy.Data.Repository.Interface;
+using Zippy.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +15,9 @@ builder.Services.AddDbContext<ZippyDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"), 
         new MariaDbServerVersion(new Version(10, 11, 11))
      ));
+
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IResourceService, ResourceService>();
 
 var app = builder.Build();
 

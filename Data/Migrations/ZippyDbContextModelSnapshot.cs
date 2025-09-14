@@ -28,14 +28,13 @@ namespace Zippy.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("Alias")
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -50,10 +49,10 @@ namespace Zippy.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dfced651-e327-4052-8bc6-7c739c86f431"),
-                            CreatedAt = new DateTime(2025, 9, 12, 1, 39, 28, 456, DateTimeKind.Utc).AddTicks(7538),
+                            Id = new Guid("b0c3a065-4f8b-4fcd-b924-6b317417e18c"),
+                            Alias = "Resource 1",
+                            CreatedAt = new DateTime(2025, 9, 13, 18, 42, 15, 947, DateTimeKind.Utc).AddTicks(3200),
                             Key = "resource1-key",
-                            Name = "Resource 1",
                             Url = "https://github.com/wisdomtochi"
                         });
                 });
