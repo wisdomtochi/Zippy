@@ -2,20 +2,28 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center bg-light vh-75 d-flex justify-content-center align-items-center flex-column">
-    <h2>Shorten your desired URL.</h2>
+<div class="container d-flex justify-content-center align-items-center bg-light">
+    <div class="card shadow-lg p-4 w-50">
+        <h2 class="text-center mb-4">🔗 Shorten Your URL</h2>
 
-    <form action="/" method="post" class="vw-100">
-        <div>
-            <label>URL: </label>
-            <input type="text" name="Url" placeholder="Input your URL here" class="m-3 p-2 w-25 rounded" />
-        </div>
-        <br />
-        <div>
-            <label>Alias: </label>
-            <input type="text" name="Alias" placeholder="Input your custom alias here." class="m-3 p-2 w-25 rounded" />
-        </div>
-        <br />
-        <input type="submit" value="Shorten" />
-    </form>
+        <form action="/" method="post">
+            <div class="mb-3">
+                <label for="urlInput" class="form-label">Original URL</label>
+                <input type="text" id="urlInput" name="Url" class="form-control" placeholder="e.g. https://example.com/article" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="aliasInput" class="form-label">Custom Alias (optional)</label>
+                <input type="text" id="aliasInput" name="Alias" class="form-control" placeholder="e.g. my-blog">
+                <div class="form-text text-info">
+                    Your shortened link will look like: <strong>https://zippy.runasp.net/my-blog</strong><br>
+                    <span class="text-danger">Note: Alias must be unique</span>
+                </div>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">Shorten URL</button>
+            </div>
+        </form>
+    </div>
 </div>

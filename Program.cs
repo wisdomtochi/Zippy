@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Zippy.Data.Context;
@@ -35,6 +36,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "custom",
+    pattern: "{name?}",
+    defaults: new {Controller = "Home", Action = "Index"});
 
 app.MapControllerRoute(
     name: "default",

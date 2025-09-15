@@ -52,6 +52,9 @@ namespace Zippy.Services
 
                 await _resourceRepo.AddAsync(resource);
                 await _resourceRepo.SaveAsync();
+
+                if (!string.IsNullOrWhiteSpace(model.Alias)) return model.Alias;
+
                 return key;
             }
             catch (Exception ex)
@@ -60,27 +63,20 @@ namespace Zippy.Services
             }
         }
 
-        public async Task<string> GetOriginalURL(string encodedUrl)
+        public async Task<string> GetOriginalURL(string key)
         {
             try
             {
-                var baseUrl = config["AppSettings:BaseUrl"];
-                var url = new Uri(encodedUrl);
-
-                var domain = url.Host;
-
-                if(domain.Equals(baseUrl, StringComparison.OrdinalIgnoreCase) == false)
-                {
-                    return "The provided URL does not exist.";
-                }
-
-                var key = url.AbsolutePath.TrimStart('/');
-
                 var resource = await _resourceRepo.ReadAllQuery()
                                                   .AsNoTracking()
                                                   .FirstOrDefaultAsync(r => r.Key == key || r.Alias == key);
 
-                return resource?.Url;
+                if (resource == null) return null;
+
+                if (!resource.Url.StartsWith("http") && !resource.Url.StartsWith("https") || resource.Url.StartsWith("www"))
+                    return $"https://{resource.Url}";
+
+                return resource.Url;
             }
             catch (Exception ex)
             {
