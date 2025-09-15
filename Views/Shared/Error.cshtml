@@ -3,7 +3,7 @@
     ViewData["Title"] = "Error";
 }
 
-<div class="container d-flex justify-content-center align-items-center bg-light text-danger text-center vh-75 vw-50 p-5">
+<div class="container d-flex flex-column justify-content-center align-items-center bg-light text-danger text-center vw-50 p-5">
     @{
         if(Model == null)
         {
@@ -15,5 +15,5 @@
         }
     }
 
-    <a class="btn btn-primary mt-4" asp-controller="Home" asp-action="Index">Go home</a>
+    <a class="btn btn-primary mt-4" href="/">Go home</a>
 </div>

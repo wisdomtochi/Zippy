@@ -4,7 +4,7 @@ namespace Zippy.Services
 {
     public interface IResourceService
     {
-        Task<string> GetOriginalURL(string key);
-        Task<string> GenerateShortenedURL(ResourceViewModel model);
+        Task<Result<string>> GetOriginalURL(string key);
+        Task<Result<string>> GenerateShortenedURL(ResourceViewModel model);
     }
 }

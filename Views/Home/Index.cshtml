@@ -8,7 +8,7 @@
 
         <form action="/" method="post">
             <div class="mb-3">
-                <label for="urlInput" class="form-label">Original URL</label>
+                <label for="urlInput" class="form-label">Original URL<span class="text-danger fs-5">*</span></label>
                 <input type="text" id="urlInput" name="Url" class="form-control" placeholder="e.g. https://example.com/article" required>
             </div>
 
@@ -16,7 +16,7 @@
                 <label for="aliasInput" class="form-label">Custom Alias (optional)</label>
                 <input type="text" id="aliasInput" name="Alias" class="form-control" placeholder="e.g. my-blog">
                 <div class="form-text text-info">
-                    Your shortened link will look like: <strong>https://zippy.runasp.net/my-blog</strong><br>
+                    Your shortened link will look like: <strong>http://zippy.runasp.net/my-blog</strong><br>
                     <span class="text-danger">Note: Alias must be unique</span>
                 </div>
             </div>

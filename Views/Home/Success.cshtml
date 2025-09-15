@@ -7,7 +7,23 @@
 <div class="text-center bg-light container p-5 vh-50 m-auto">
     <h3 class="mb-2">The shortened URL has been generated successfully.</h3>
 
-    <p>@Model.ShortenedUrl</p>
+    <p class="shortenedUrl">@Model.ShortenedUrl</p>
 
-    <a class="btn btn-primary mt-4" asp-controller="Home" asp-action="Index">Go home</a>
+    <div class="d-flex mt-4 justify-content-between w-25 m-auto">
+        <a class="btn btn-primary copy-btn">Copy URL</a>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Go home</a>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.querySelector('.copy-btn').addEventListener('click', function() {
+            const urlText = document.querySelector('.shortenedUrl').innerText;
+            navigator.clipboard.writeText(urlText).then(function() {
+                alert('URL copied to clipboard!');
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        });
+    </script>
+}

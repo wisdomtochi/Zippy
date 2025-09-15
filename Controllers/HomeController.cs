@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 using Zippy.Models;
 using Zippy.Services;
 
@@ -15,16 +16,16 @@ namespace Zippy.Controllers
         {
             if (!string.IsNullOrWhiteSpace(name))
             {
-                var url = await _resourceService.GetOriginalURL(name);
+                var result = await _resourceService.GetOriginalURL(name);
 
-                if (url == null)
+                if (!result.IsSuccess)
                 {
-                    var error = new ErrorViewModel { ErrorMessage = "Invalid URL. Please check the link and try again." };
+                    var error = new ErrorViewModel { ErrorMessage = result.Message };
 
                     return View("Error", error);
                 }
 
-                return Redirect(url);
+                return Redirect(result.Data);
             }
 
             return View();
@@ -35,16 +36,16 @@ namespace Zippy.Controllers
         {
             if (ModelState.IsValid)
             {
-                var shortenedUrl = await _resourceService.GenerateShortenedURL(model);
+                var result = await _resourceService.GenerateShortenedURL(model);
 
-                if (shortenedUrl == null)
+                if (!result.IsSuccess)
                 {
-                    var error = new ErrorViewModel { ErrorMessage = "The provided alias is already in use. Please choose a different alias." };
+                    var error = new ErrorViewModel { ErrorMessage = result.Message };
 
                     return View("Error", error);
                 }
 
-                var url = $"{configuration["BaseUrl"]}{shortenedUrl}" ?? string.Empty;
+                var url = $"{configuration["BaseUrl"]}{result.Message}" ?? string.Empty;
 
                 var successModel = new SuccessViewModel { ShortenedUrl = url };
 
