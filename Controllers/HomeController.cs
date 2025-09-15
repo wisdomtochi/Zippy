@@ -45,7 +45,7 @@ namespace Zippy.Controllers
                     return View("Error", error);
                 }
 
-                var url = $"{configuration["BaseUrl"]}{result.Message}" ?? string.Empty;
+                var url = $"{configuration["BaseUrl"]}{result.Data}" ?? string.Empty;
 
                 var successModel = new SuccessViewModel { ShortenedUrl = url };
 
