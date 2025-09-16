@@ -9,7 +9,7 @@
 
     <p class="shortenedUrl">@Model.ShortenedUrl</p>
 
-    <div class="d-flex mt-4 justify-content-between w-25 m-auto">
+    <div class="d-flex mt-3 justify-content-between w-25 m-auto">
         <a class="btn btn-primary copy-btn">Copy URL</a>
         <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back to Home</a>
     </div>
@@ -19,11 +19,34 @@
     <script>
         document.querySelector('.copy-btn').addEventListener('click', function() {
             const urlText = document.querySelector('.shortenedUrl').innerText;
-            navigator.clipboard.writeText(urlText).then(function() {
-                alert('URL copied to clipboard!');
-            }, function(err) {
-                console.error('Could not copy text: ', err);
-            });
+            if(navigator.clipboard?.writeText){
+                navigator.clipboard.writeText(urlText)
+                .then(() => alert('URL copied to clipboard!'))
+                .catch(() => fallback(urlText));
+            }
+            else{
+                fallback(urlText);
+            }
         });
+
+        function fallback(text){
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.select();
+            try{
+                document.execCommand("copy");
+                alert("URL copied to clipboaed!");
+            }catch(err){
+                console.log("Unable ot copy.");
+                alert("Failed to copy URL. Please copy manually.");
+            }
+
+            document.body.removeChild(textArea);
+        }
     </script>
 }
